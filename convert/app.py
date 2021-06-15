@@ -1,6 +1,7 @@
 import os
 import logging
 from flask import Flask, request, send_file
+from flask_cors import CORS
 from pantomime import FileName, normalize_mimetype, mimetype_extension
 from pantomime.types import PDF
 
@@ -13,6 +14,7 @@ from convert.util import SystemFailure, ConversionFailure
 logging.basicConfig(level=logging.DEBUG)
 log = logging.getLogger("convert")
 app = Flask("convert")
+CORS(app)
 extensions = load_mime_extensions()
 method = os.environ.get("CONVERTER_METHOD", "unoconv")
 if method == "unoconv":
